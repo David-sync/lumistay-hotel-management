@@ -16,7 +16,6 @@ export async function AppShell({ children }: { children: ReactNode }) {
         username: user.username,
         role: user.role,
       }}
-      isRealDb={process.env.USE_REAL_DB === "true"}
     >
       {children}
     </AppShellClient>

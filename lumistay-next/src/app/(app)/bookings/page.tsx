@@ -1,7 +1,6 @@
 import { BookingTable } from "@/components/booking-table";
 import { CreateBookingCard } from "@/components/create-booking-card";
 import { PageHeader } from "@/components/page-header";
-import { ProcedureMap } from "@/components/procedure-map";
 import { getBookings } from "@/lib/repository";
 
 export default async function BookingsPage() {
@@ -11,16 +10,11 @@ export default async function BookingsPage() {
 
   return (
     <div>
-      <PageHeader
-        eyebrow="Quản lý lưu trú"
-        title="Đặt và nhận phòng"
-        description={`${waiting} booking chờ nhận phòng · ${inHouse} booking đã nhận phòng`}
-      />
-      <section className="grid items-start gap-5 2xl:grid-cols-[minmax(0,1fr)_360px]">
+      <PageHeader title="Đặt phòng" description={`${waiting} khách chờ nhận phòng · ${inHouse} khách đang lưu trú`} />
+      <section className="grid items-start gap-4 2xl:grid-cols-[minmax(0,1fr)_320px]">
         <BookingTable bookings={bookings} />
         <CreateBookingCard />
       </section>
-      <section className="mt-5"><ProcedureMap /></section>
     </div>
   );
 }

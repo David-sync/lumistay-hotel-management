@@ -7,9 +7,9 @@
 ---
 
 **Project:** LumiStay
-**Generated:** 2026-07-19 16:23:06
-**Category:** Travel/Tourism Agency
-**Design Dials:** Variance 5/10 (Balanced / Modern) | Motion 4/10 (Standard) | Density 6/10 (Standard)
+**Generated:** 2026-07-19 22:08:18
+**Category:** Hotel/Hospitality
+**Design Dials:** Variance 3/10 (Centered / Minimal) | Motion 2/10 (Subtle) | Density 8/10 (Dense / Dashboard)
 
 ---
 
@@ -19,44 +19,44 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#0F766E` | `--color-primary` |
+| Primary | `#1E3A8A` | `--color-primary` |
 | On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#14B8A6` | `--color-secondary` |
-| Accent/CTA | `#0369A1` | `--color-accent` |
-| Background | `#F0FDFA` | `--color-background` |
-| Foreground | `#134E4A` | `--color-foreground` |
-| Muted | `#E8F0F3` | `--color-muted` |
-| Border | `#99F6E4` | `--color-border` |
+| Secondary | `#3B82F6` | `--color-secondary` |
+| Accent/CTA | `#A16207` | `--color-accent` |
+| Background | `#F8FAFC` | `--color-background` |
+| Foreground | `#1E40AF` | `--color-foreground` |
+| Muted | `#E9EEF5` | `--color-muted` |
+| Border | `#BFDBFE` | `--color-border` |
 | Destructive | `#DC2626` | `--color-destructive` |
-| Ring | `#0F766E` | `--color-ring` |
+| Ring | `#1E3A8A` | `--color-ring` |
 
-**Color Notes:** Trust teal + professional blue
+**Color Notes:** Luxury navy + gold service [Accent adjusted from #CA8A04 for WCAG 3:1]
 
 ### Typography
 
-- **Heading Font:** Cinzel
-- **Body Font:** Josefin Sans
-- **Mood:** real estate, luxury, elegant, sophisticated, property, premium
-- **Google Fonts:** [Cinzel + Josefin Sans](https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap)
+- **Heading Font:** Calistoga
+- **Body Font:** Inter
+- **Mood:** saas, boutique, electric, warm, editorial, bold, premium, fintech, business, dual font, human warmth
+- **Google Fonts:** [Calistoga + Inter](https://fonts.googleapis.com/css2?family=Calistoga:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap)
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Calistoga:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 ```
 
 ### Spacing Variables
 
-*Density: 6/10 — Standard*
+*Density: 8/10 — Dense / Dashboard*
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--space-xs` | `4px` / `0.25rem` | Tight gaps |
-| `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `16px` / `1rem` | Standard padding |
-| `--space-lg` | `24px` / `1.5rem` | Section padding |
-| `--space-xl` | `32px` / `2rem` | Large gaps |
-| `--space-2xl` | `48px` / `3rem` | Section margins |
-| `--space-3xl` | `64px` / `4rem` | Hero padding |
+| `--space-xs` | `2px` / `0.125rem` | Tight gaps |
+| `--space-sm` | `4px` / `0.25rem` | Icon gaps, inline spacing |
+| `--space-md` | `8px` / `0.5rem` | Standard padding |
+| `--space-lg` | `12px` / `0.75rem` | Section padding |
+| `--space-xl` | `16px` / `1rem` | Large gaps |
+| `--space-2xl` | `24px` / `1.5rem` | Section margins |
+| `--space-3xl` | `32px` / `2rem` | Hero padding |
 
 ### Shadow Depths
 
@@ -76,7 +76,7 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #0369A1;
+  background: #A16207;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -93,8 +93,8 @@
 /* Secondary Button */
 .btn-secondary {
   background: transparent;
-  color: #0F766E;
-  border: 2px solid #0F766E;
+  color: #1E3A8A;
+  border: 2px solid #1E3A8A;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -107,7 +107,7 @@
 
 ```css
 .card {
-  background: #F0FDFA;
+  background: #F8FAFC;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow-md);
@@ -133,9 +133,9 @@
 }
 
 .input:focus {
-  border-color: #0F766E;
+  border-color: #1E3A8A;
   outline: none;
-  box-shadow: 0 0 0 3px #0F766E20;
+  box-shadow: 0 0 0 3px #1E3A8A20;
 }
 ```
 
@@ -161,43 +161,43 @@
 
 ## Style Guidelines
 
-**Style:** SaaS Mobile (High-Tech Boutique)
+**Style:** Exaggerated Minimalism
 
-**Keywords:** saas, electric blue, gradient, fintech, spring animation, dual font, glassmorphism, boutique, premium, calistoga, inter, mono, tactile, haptic, bento
+**Keywords:** Bold minimalism, oversized typography, high contrast, negative space, loud minimal, statement design
 
-**Best For:** B2B SaaS mobile dashboards, fintech apps, developer tool mobile companions, marketing analytics apps, HR/operations apps, modern business productivity
+**Best For:** Fashion, architecture, portfolios, agency landing pages, luxury brands, editorial
 
-**Key Effects:** Spring animations (mass:1 damping:15 stiffness:120); gradient buttons (0052FF→4D7CFF); scale press 0.96→1.0 with haptics; floating FAB with gentle bobbing (Reanimated); glassmorphism BlurView navigation bars; staggered fade-in entrance (Y:20→0 + opacity:0→1); pulsing status dot on section badges; layout transitions (LayoutAnimation or Reanimated entering)
+**Key Effects:** font-size: clamp(3rem 10vw 12rem), font-weight: 900, letter-spacing: -0.05em, massive whitespace
 
 ### Page Pattern
 
-**Pattern Name:** Real-Time / Operations Landing
+**Pattern Name:** Minimal Single Column
 
-- **Conversion Strategy:** For ops/security/iot products. Demo or sandbox link. Trust signals.
-- **CTA Placement:** Primary CTA in nav + After metrics
-- **Section Order:** 1. Hero (product + live preview or status), 2. Key metrics/indicators, 3. How it works, 4. CTA (Start trial / Contact)
+- **Conversion Strategy:** Single CTA focus. Large typography. Lots of whitespace. No nav clutter. Mobile-first.
+- **CTA Placement:** Center, large CTA button
+- **Section Order:** 1. Hero headline, 2. Short description, 3. Benefit bullets (3 max), 4. CTA, 5. Footer
 
 ---
 
 ## Motion
 
-**Stagger List** (Standard) — Trigger: load or scroll | Duration: 300-450ms | Easing: `back.out(1.4)`
+**Scroll Reveal** (Subtle) — Trigger: scroll (viewport enter) | Duration: 300-400ms | Easing: `power1.out`
 
 ```js
-gsap.from('.grid-item', { opacity: 0, scale: 0.92, y: 16, duration: 0.4, stagger: { each: 0.06, from: 'start', grid: 'auto' }, ease: 'back.out(1.4)' });
+gsap.from(el, { opacity: 0, y: 12, duration: 0.35, ease: 'power1.out', scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none reverse' } });
 ```
 
-**Framework notes:** grid: 'auto' lets GSAP infer rows/columns from a CSS grid layout for a natural wave stagger
+**Framework notes:** Requires the ScrollTrigger plugin registered once via gsap.registerPlugin(ScrollTrigger)
 
-- ✅ Combine with from: 'center' for a bento-grid layout to draw the eye inward first
-- ❌ Don't use back.out on dense data tables; the overshoot reads as sloppy on informational UI
-- ⚡ Group DOM writes; avoid interleaving layout reads (getBoundingClientRect) between staggered tweens
+- ✅ Keep the y offset small (8-16px) so it reads as a fade, not a slide
+- ❌ Don't reveal below-the-fold content needed for SEO/crawlers as invisible-by-default without a no-JS fallback
+- ⚡ toggleActions 'play none none reverse' avoids re-triggering on every scroll direction change
 
 ---
 
 ## Anti-Patterns (Do NOT Use)
 
-- ❌ Generic photos
+- ❌ Poor photos
 - ❌ Complex booking
 
 ### Additional Forbidden Patterns

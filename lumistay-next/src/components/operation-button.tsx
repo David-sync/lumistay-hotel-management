@@ -52,7 +52,7 @@ export function OperationButton({ action, identifier, bookingId, label, classNam
         onClick={runOperation}
         disabled={pending || feedback.type === "success"}
         className={cn(
-          "inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg bg-ops-primary px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-65",
+          "inline-flex min-h-8 items-center justify-center gap-1.5 rounded-[4px] bg-[#183B35] px-2.5 py-1.5 text-[11px] font-bold text-white transition hover:bg-[#102F2A] focus:outline-none focus:ring-2 focus:ring-[#183B35]/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-65",
           className,
         )}
       >

@@ -1,9 +1,3 @@
 export default function DashboardLoading() {
-  return (
-    <div className="animate-pulse space-y-5">
-      <div className="h-24 max-w-2xl rounded-lg bg-slate-200" />
-      <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">{[1, 2, 3, 4].map((item) => <div key={item} className="h-28 rounded-xl bg-white ring-1 ring-slate-200" />)}</div>
-      <div className="grid gap-5 2xl:grid-cols-[1.2fr_.8fr]"><div className="h-96 rounded-xl bg-white ring-1 ring-slate-200" /><div className="h-96 rounded-xl bg-white ring-1 ring-slate-200" /></div>
-    </div>
-  );
+  return <div className="animate-pulse space-y-4"><div className="h-20 max-w-2xl rounded-[6px] bg-[#E7E1D7]" /><div className="grid grid-cols-2 overflow-hidden rounded-[6px] border border-[#D8D2C7] bg-[#FBFAF7] sm:grid-cols-4">{[1, 2, 3, 4].map((item) => <div key={item} className="h-20 border-r border-[#E7E1D7] last:border-r-0" />)}</div><div className="grid gap-3 lg:grid-cols-2"><div className="h-72 rounded-[6px] border border-[#D8D2C7] bg-[#FBFAF7]" /><div className="h-72 rounded-[6px] border border-[#D8D2C7] bg-[#FBFAF7]" /></div></div>;
 }

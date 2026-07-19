@@ -2,10 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BedDouble, CalendarDays, Search, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, Users } from "lucide-react";
 import type { RoomType } from "@/lib/types";
 
 type SearchInitialValues = {
+  // Kept for compatibility with existing links; the public search always considers every room type.
   tenLp?: string;
   ngDen?: string;
   ngDi?: string;
@@ -13,7 +14,7 @@ type SearchInitialValues = {
 };
 
 type Props = {
-  roomTypes: RoomType[];
+  roomTypes?: RoomType[];
   compact?: boolean;
   initialValues?: SearchInitialValues;
 };
@@ -33,23 +34,20 @@ function defaultDates() {
   return { arrival: toDateInput(arrival), departure: toDateInput(departure) };
 }
 
-export function HeroSearch({ roomTypes, compact = false, initialValues }: Props) {
+export function HeroSearch({ compact = false, initialValues }: Props) {
   const router = useRouter();
   const defaults = defaultDates();
-  const fallbackRoomType = roomTypes[0]?.tenLp || "Standard Single";
-  const initialGuests = Math.min(6, Math.max(1, initialValues?.guests || 2));
-
-  const [tenLp, setTenLp] = useState(initialValues?.tenLp || fallbackRoomType);
   const [ngDen, setNgDen] = useState(initialValues?.ngDen || defaults.arrival);
   const [ngDi, setNgDi] = useState(initialValues?.ngDi || defaults.departure);
-  const [guests, setGuests] = useState(initialGuests);
+  const [guests, setGuests] = useState(Math.min(6, Math.max(1, initialValues?.guests || 2)));
 
   useEffect(() => {
-    setTenLp(initialValues?.tenLp || fallbackRoomType);
     setNgDen(initialValues?.ngDen || defaults.arrival);
     setNgDi(initialValues?.ngDi || defaults.departure);
     setGuests(Math.min(6, Math.max(1, initialValues?.guests || 2)));
-  }, [initialValues?.tenLp, initialValues?.ngDen, initialValues?.ngDi, initialValues?.guests, fallbackRoomType, defaults.arrival, defaults.departure]);
+    // The route is the source of truth when the search bar is reused on another public page.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues?.ngDen, initialValues?.ngDi, initialValues?.guests]);
 
   function updateArrival(value: string) {
     setNgDen(value);
@@ -62,64 +60,43 @@ export function HeroSearch({ roomTypes, compact = false, initialValues }: Props)
 
   function search(event: React.FormEvent) {
     event.preventDefault();
-    const params = new URLSearchParams({ tenLp, ngDen, ngDi, guests: String(guests) });
-    router.push(`/search?${params.toString()}`);
+    router.push(`/search?${new URLSearchParams({ ngDen, ngDi, guests: String(guests) }).toString()}`);
   }
 
   const fieldClass = compact
-    ? "flex min-w-0 flex-col gap-1 rounded-md px-3 py-2"
-    : "flex min-w-0 flex-col gap-1.5 rounded-md px-4 py-3";
-  const controlClass = "min-w-0 cursor-pointer rounded-sm bg-transparent py-0.5 text-sm font-semibold text-gray-900 outline-none focus-visible:ring-2 focus-visible:ring-[#006ce4] focus-visible:ring-offset-2";
+    ? "flex min-w-0 flex-col gap-1 border border-[#d5cec2] px-3 py-2.5"
+    : "flex min-w-0 flex-col gap-1 border border-[#d5cec2] bg-[#fbf9f5] px-4 py-3";
+  const controlClass = "min-w-0 cursor-pointer bg-transparent py-0.5 text-sm font-semibold text-[#25241f] outline-none focus-visible:ring-2 focus-visible:ring-[#9A6A2F]";
 
   return (
-    <form
-      onSubmit={search}
-      aria-label="Tìm phòng"
-      className={`rounded-xl border-4 border-[#febb02] bg-white shadow-booking-lg ${compact ? "p-1.5" : "p-2"}`}
-    >
-      <div className="grid gap-1.5 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_.75fr_auto]">
-        <label className={`${fieldClass} border border-gray-200 lg:border-0 lg:border-r`}>
-          <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-500">
-            <BedDouble className="h-4 w-4 text-[#006ce4]" aria-hidden="true" /> Loại phòng
-          </span>
-          <select value={tenLp} onChange={(event) => setTenLp(event.target.value)} className={controlClass}>
-            {roomTypes.map((type) => (
-              <option key={type.malp} value={type.tenLp}>{type.tenLp}</option>
-            ))}
-          </select>
-        </label>
-
-        <label className={`${fieldClass} border border-gray-200 lg:border-0 lg:border-r`}>
-          <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-500">
-            <CalendarDays className="h-4 w-4 text-[#006ce4]" aria-hidden="true" /> Nhận phòng
+    <form onSubmit={search} aria-label="Tìm phòng tại LumiStay" className={`border border-[#9a6a2f] bg-[#f4f0e8] p-2 ${compact ? "shadow-[0_8px_24px_rgba(24,59,53,0.08)]" : "shadow-[0_14px_34px_rgba(24,59,53,0.16)]"}`}>
+      <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-[1fr_1fr_.75fr_auto]">
+        <label className={fieldClass}>
+          <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6c685f]">
+            <CalendarDays className="h-4 w-4 text-[#9a6a2f]" aria-hidden="true" /> Nhận phòng
           </span>
           <input type="date" required value={ngDen} onChange={(event) => updateArrival(event.target.value)} className={controlClass} />
         </label>
 
-        <label className={`${fieldClass} border border-gray-200 lg:border-0 lg:border-r`}>
-          <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-500">
-            <CalendarDays className="h-4 w-4 text-[#006ce4]" aria-hidden="true" /> Trả phòng
+        <label className={fieldClass}>
+          <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6c685f]">
+            <CalendarDays className="h-4 w-4 text-[#9a6a2f]" aria-hidden="true" /> Trả phòng
           </span>
           <input type="date" required value={ngDi} onChange={(event) => setNgDi(event.target.value)} min={ngDen} className={controlClass} />
         </label>
 
-        <label className={`${fieldClass} border border-gray-200 lg:border-0 lg:border-r`}>
-          <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-500">
-            <Users className="h-4 w-4 text-[#006ce4]" aria-hidden="true" /> Số khách
+        <label className={fieldClass}>
+          <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6c685f]">
+            <Users className="h-4 w-4 text-[#9a6a2f]" aria-hidden="true" /> Khách
           </span>
           <select value={guests} onChange={(event) => setGuests(Number(event.target.value))} className={controlClass}>
-            {[1, 2, 3, 4, 5, 6].map((number) => (
-              <option key={number} value={number}>{number} khách</option>
-            ))}
+            {[1, 2, 3, 4, 5, 6].map((number) => <option key={number} value={number}>{number} khách</option>)}
           </select>
         </label>
 
-        <button
-          type="submit"
-          className={`booking-btn-primary flex min-h-12 items-center justify-center gap-2 whitespace-nowrap focus-visible:ring-4 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#003580] ${compact ? "px-6 py-3" : "px-8 py-4"}`}
-        >
-          <Search className="h-5 w-5" aria-hidden="true" />
-          {compact ? "Tìm lại" : "Tìm phòng"}
+        <button type="submit" className={`inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 bg-[#183b35] px-6 py-3 text-sm font-bold text-[#f4f0e8] transition hover:bg-[#25534a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9a6a2f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4f0e8] ${compact ? "lg:px-5" : "lg:px-8"}`}>
+          {compact ? "Cập nhật" : "Xem phòng"}
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
     </form>

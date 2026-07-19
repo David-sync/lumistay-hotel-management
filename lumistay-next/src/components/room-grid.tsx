@@ -1,88 +1,46 @@
-import type { ElementType } from "react";
-import { BedDouble, Brush, CalendarClock, DoorOpen, Wrench } from "lucide-react";
 import type { Room, RoomStatus } from "@/lib/types";
-import { cn, formatCurrency, formatDate, statusDot, statusTone } from "@/lib/utils";
-
-const statusIcons: Record<RoomStatus, ElementType> = {
-  "Trống": DoorOpen,
-  "Đang thuê": BedDouble,
-  "Đã đặt": CalendarClock,
-  "Đang sửa chữa": Wrench,
-};
+import { cn } from "@/lib/utils";
 
 export function RoomGrid({ rooms, compact = false }: { rooms: Room[]; compact?: boolean }) {
   const floors = Array.from(new Set(rooms.map((room) => room.tang))).sort((a, b) => a - b);
-
-  return (
-    <div className="space-y-4">
-      <RoomLegend />
-      {floors.map((floor) => {
-        const floorRooms = rooms.filter((room) => room.tang === floor);
-        const ready = floorRooms.filter((room) => room.trangThai === "Trống" && room.donDep === "Sạch").length;
-        const occupied = floorRooms.filter((room) => room.trangThai === "Đang thuê").length;
-        return (
-          <section key={floor} className="ops-card overflow-hidden">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-slate-50/70 px-4 py-3.5 sm:px-5">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-sm font-bold text-ops-primary shadow-sm ring-1 ring-slate-200">{floor}</span>
-                <div><h2 className="text-sm font-bold text-slate-900">Tầng {floor}</h2><p className="text-xs text-slate-500">{floorRooms.length} phòng</p></div>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-slate-500"><span><b className="text-emerald-700">{ready}</b> sẵn sàng</span><span className="h-3 w-px bg-slate-300" /><span><b className="text-sky-700">{occupied}</b> đang ở</span></div>
-            </div>
-            <div className={cn("grid gap-px bg-slate-200", compact ? "sm:grid-cols-2 xl:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4")}>
-              {floorRooms.map((room) => <RoomCard key={room.soPhong} room={room} />)}
-            </div>
-          </section>
-        );
-      })}
-      {rooms.length === 0 ? <div className="ops-card px-5 py-12 text-center text-sm text-slate-500">Chưa có dữ liệu phòng.</div> : null}
-    </div>
-  );
+  return <div className="space-y-3">
+    <RoomLegend />
+    {floors.map((floor) => {
+      const floorRooms = rooms.filter((room) => room.tang === floor);
+      const ready = floorRooms.filter((room) => room.trangThai === "Trống" && room.donDep === "Sạch").length;
+      const occupied = floorRooms.filter((room) => room.trangThai === "Đang thuê").length;
+      return <section key={floor} className="overflow-hidden rounded-[6px] border border-[#D8D2C7] bg-[#FBFAF7]"><div className="flex items-center justify-between border-b border-[#D8D2C7] bg-[#F0EDE7] px-3 py-2"><div className="flex items-center gap-2"><span className="flex h-6 w-6 items-center justify-center rounded-[4px] bg-[#183B35] text-[11px] font-bold text-white">{floor}</span><h2 className="text-[13px] font-bold text-[#25322D]">Tầng {floor}</h2><span className="text-[11px] text-[#81796D]">{floorRooms.length} phòng</span></div><div className="flex items-center gap-2.5 text-[11px] text-[#716B61]"><span><b className="text-[#356B4C]">{ready}</b> sẵn sàng</span><span className="h-3 w-px bg-[#C9C2B6]" /><span><b className="text-[#183B35]">{occupied}</b> đang ở</span></div></div><div className={cn("grid gap-px bg-[#D8D2C7]", compact ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5")}>{floorRooms.map((room) => <RoomCell key={room.soPhong} room={room} />)}</div></section>;
+    })}
+    {rooms.length === 0 ? <div className="rounded-[6px] border border-[#D8D2C7] bg-[#FBFAF7] px-5 py-10 text-center text-sm text-[#716B61]">Chưa có dữ liệu phòng.</div> : null}
+  </div>;
 }
 
-function RoomCard({ room }: { room: Room }) {
-  const Icon = statusIcons[room.trangThai];
-  const guidance = getRoomGuidance(room);
+function RoomCell({ room }: { room: Room }) {
+  const clean = room.donDep === "Sạch";
+  return <article className="min-h-[82px] bg-[#FBFAF7] px-2.5 py-2 transition hover:bg-[#F7F1E7]"><div className="flex items-start justify-between gap-1.5"><div className="flex items-center gap-1.5"><span className={cn("h-2 w-2 rounded-full", roomDot(room.trangThai))} /><span className="text-[16px] font-bold tabular-nums tracking-tight text-[#183B35]">{room.soPhong}</span></div><span className={cn("rounded-[3px] border px-1.5 py-0.5 text-[9px] font-bold", roomTone(room.trangThai))}>{shortStatus(room.trangThai)}</span></div><p className="mt-1 truncate text-[11px] font-medium text-[#4E5852]">{room.khachHang || room.loaiPhong}</p><p className={cn("mt-1 text-[10px] font-semibold", clean ? "text-[#51705D]" : "text-[#9A6A2F]")}>Buồng: {room.donDep.toLowerCase()}</p></article>;
+}
 
-  return (
-    <article className="relative bg-white p-4 transition hover:z-10 hover:bg-slate-50">
-      <span className={cn("absolute inset-y-0 left-0 w-1", statusDot(room.trangThai))} />
-      <div className="flex items-start justify-between gap-3 pl-1">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Phòng</p>
-          <p className="mt-0.5 text-2xl font-bold tracking-tight text-slate-950">{room.soPhong}</p>
-        </div>
-        <span className={cn("flex h-9 w-9 items-center justify-center rounded-lg border", statusTone(room.trangThai))}><Icon className="h-4 w-4" aria-hidden="true" /></span>
-      </div>
-      <div className="mt-3 flex flex-wrap items-center gap-1.5 pl-1">
-        <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-semibold", statusTone(room.trangThai))}><span className={cn("h-1.5 w-1.5 rounded-full", statusDot(room.trangThai))} />{room.trangThai}</span>
-        <span className={cn("inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium", room.donDep === "Sạch" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-amber-200 bg-amber-50 text-amber-700")}><Brush className="h-3 w-3" />{room.donDep}</span>
-      </div>
-      <dl className="mt-3 space-y-1.5 border-t border-slate-100 pt-3 text-xs">
-        <div className="flex justify-between gap-3"><dt className="text-slate-500">Hạng phòng</dt><dd className="font-semibold text-slate-700">{room.loaiPhong}</dd></div>
-        <div className="flex justify-between gap-3"><dt className="text-slate-500">Giá niêm yết</dt><dd className="font-semibold tabular-nums text-slate-700">{formatCurrency(room.gia)}</dd></div>
-        {room.khachHang ? <div className="flex justify-between gap-3"><dt className="text-slate-500">Khách</dt><dd className="max-w-[60%] truncate font-semibold text-slate-700">{room.khachHang}</dd></div> : null}
-        {room.ngayDi ? <div className="flex justify-between gap-3"><dt className="text-slate-500">Ngày đi</dt><dd className="font-semibold text-slate-700">{formatDate(room.ngayDi)}</dd></div> : null}
-      </dl>
-      <p className="mt-3 rounded-md bg-slate-50 px-2.5 py-2 text-[11px] font-medium leading-4 text-slate-600">{guidance}</p>
-    </article>
-  );
+function roomTone(status: RoomStatus) {
+  if (status === "Trống") return "border-[#BBD2C1] bg-[#EFF6F0] text-[#356B4C]";
+  if (status === "Đang thuê") return "border-[#BCD6D1] bg-[#EEF5F3] text-[#28635D]";
+  if (status === "Đã đặt") return "border-[#E4CBA4] bg-[#FBF4E8] text-[#9A6A2F]";
+  return "border-[#D8D2C7] bg-[#F0EDE7] text-[#716B61]";
+}
+
+function roomDot(status: RoomStatus) {
+  if (status === "Trống") return "bg-[#4D805C]";
+  if (status === "Đang thuê") return "bg-[#2D6964]";
+  if (status === "Đã đặt") return "bg-[#B27B32]";
+  return "bg-[#8B887F]";
+}
+
+function shortStatus(status: RoomStatus) {
+  if (status === "Đang thuê") return "Đang ở";
+  if (status === "Đang sửa chữa") return "Bảo trì";
+  return status;
 }
 
 export function RoomLegend() {
   const items: RoomStatus[] = ["Trống", "Đã đặt", "Đang thuê", "Đang sửa chữa"];
-  return (
-    <div className="flex flex-wrap items-center gap-2" aria-label="Chú thích trạng thái phòng">
-      {items.map((item) => <span key={item} className={cn("inline-flex items-center gap-1.5 rounded-full border bg-white px-2.5 py-1 text-[11px] font-semibold", statusTone(item))}><span className={cn("h-1.5 w-1.5 rounded-full", statusDot(item))} />{item}</span>)}
-      <span className="ml-auto hidden text-[11px] text-slate-400 lg:inline">Trạng thái cập nhật từ sơ đồ buồng</span>
-    </div>
-  );
-}
-
-function getRoomGuidance(room: Room) {
-  if (room.trangThai === "Trống" && room.donDep === "Sạch") return "Sẵn sàng phân bổ cho booking mới";
-  if (room.trangThai === "Trống") return "Chờ hoàn tất vệ sinh trước khi bán";
-  if (room.trangThai === "Đã đặt") return "Kiểm tra hồ sơ trước khi nhận phòng";
-  if (room.trangThai === "Đang thuê") return "Theo dõi dịch vụ và thời điểm trả phòng";
-  return "Tạm khóa bán cho đến khi bảo trì hoàn tất";
+  return <div className="flex flex-wrap items-center gap-2" aria-label="Chú thích trạng thái phòng">{items.map((item) => <span key={item} className={cn("inline-flex items-center gap-1.5 rounded-[4px] border px-2 py-1 text-[10px] font-semibold", roomTone(item))}><span className={cn("h-1.5 w-1.5 rounded-full", roomDot(item))} />{shortStatus(item)}</span>)}</div>;
 }

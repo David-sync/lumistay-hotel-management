@@ -1,21 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --booking-blue: #003580;
-  --booking-blue-light: #006ce4;
-  --booking-yellow: #febb02;
-  --booking-yellow-hover: #f2a900;
-  --ops-primary: #1e3a8a;
-  --ops-accent: #a16207;
-  --ops-bg: #f8fafc;
-  --ops-surface: #ffffff;
-  --ops-border: #e2e8f0;
-  --ops-text: #0f172a;
-  --ops-muted: #64748b;
+  --hotel-green: #183b35;
+  --hotel-green-hover: #102f2a;
+  --hotel-brass: #9a6a2f;
+  --hotel-ivory: #f4f0e8;
+  --hotel-paper: #fbfaf7;
+  --hotel-line: #d8d2c7;
+  --hotel-ink: #25322d;
+  --hotel-muted: #716b61;
+  --booking-blue: var(--hotel-green);
+  --booking-blue-light: #285b4d;
+  --booking-yellow: var(--hotel-brass);
+  --booking-yellow-hover: #805522;
+  --ops-primary: var(--hotel-green);
+  --ops-accent: var(--hotel-brass);
+  --ops-bg: #f4f1eb;
+  --ops-surface: var(--hotel-paper);
+  --ops-border: var(--hotel-line);
+  --ops-text: #17211e;
+  --ops-muted: var(--hotel-muted);
 }
 
 * { box-sizing: border-box; }
@@ -30,65 +38,65 @@ a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }
 
 :focus-visible {
-  outline: 3px solid rgba(3, 105, 161, 0.45);
+  outline: 2px solid rgba(154, 106, 47, 0.75);
   outline-offset: 2px;
 }
 
-/* ── Public booking theme (Booking.com-like) ── */
+/* Direct booking site for one hotel property. */
 .theme-public {
-  font-family: 'Outfit', system-ui, sans-serif;
-  color: #1a1a1a;
-  background: #f5f5f5;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  color: #25241f;
+  background: var(--hotel-ivory);
 }
 
 .theme-public h1,
 .theme-public h2,
 .theme-public h3 {
-  font-family: 'Outfit', system-ui, sans-serif;
+  font-family: 'Newsreader', Georgia, serif;
 }
 
 .booking-btn-primary {
-  @apply cursor-pointer rounded-md bg-[#febb02] px-6 py-3 text-sm font-bold text-[#003580] transition hover:bg-[#f2a900] focus:outline-none focus:ring-2 focus:ring-[#003580]/30 disabled:cursor-not-allowed disabled:opacity-60;
+  @apply cursor-pointer rounded-[4px] bg-[#183b35] px-6 py-3 text-sm font-bold text-[#f4f0e8] transition hover:bg-[#102f2a] focus:outline-none focus:ring-2 focus:ring-[#9a6a2f]/40 disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .booking-btn-secondary {
-  @apply cursor-pointer rounded-md border border-[#003580] bg-white px-6 py-3 text-sm font-semibold text-[#003580] transition hover:bg-[#003580]/5 focus:outline-none focus:ring-2 focus:ring-[#003580]/20;
+  @apply cursor-pointer rounded-[4px] border border-[#183b35] bg-transparent px-6 py-3 text-sm font-semibold text-[#183b35] transition hover:bg-[#183b35] hover:text-[#f4f0e8] focus:outline-none focus:ring-2 focus:ring-[#9a6a2f]/40;
 }
 
 .booking-card {
-  @apply overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md;
+  @apply overflow-hidden rounded-[4px] border border-[#d8d2c7] bg-[#fbfaf7] transition;
 }
 
 .booking-input {
-  @apply w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#006ce4] focus:ring-2 focus:ring-[#006ce4]/20;
+  @apply w-full rounded-[4px] border border-[#cfc8bc] bg-[#fbfaf7] px-4 py-3 text-sm text-[#25241f] outline-none transition placeholder:text-[#9a958b] focus:border-[#9a6a2f] focus:ring-2 focus:ring-[#9a6a2f]/20;
 }
 
-/* ── Ops dashboard theme ── */
+/* Single-property front-desk workspace. */
 .theme-ops {
-  font-family: 'Fira Sans', system-ui, sans-serif;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   color: var(--ops-text);
   background: var(--ops-bg);
 }
 
 .theme-ops code,
 .theme-ops .font-mono {
-  font-family: 'Fira Code', monospace;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .ops-card {
-  @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+  @apply rounded-[6px] border border-[#d8d2c7] bg-[#fbfaf7];
 }
 
 .ops-btn-primary {
-  @apply cursor-pointer rounded-lg bg-[#1e3a8a] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1e40af] focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]/30 disabled:cursor-not-allowed disabled:opacity-60;
+  @apply cursor-pointer rounded-[4px] bg-[#183b35] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#102f2a] focus:outline-none focus:ring-2 focus:ring-[#183b35]/30 disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .ops-btn-accent {
-  @apply cursor-pointer rounded-lg bg-[#a16207] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#92400e] focus:outline-none focus:ring-2 focus:ring-[#a16207]/30;
+  @apply cursor-pointer rounded-[4px] bg-[#9a6a2f] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#805522] focus:outline-none focus:ring-2 focus:ring-[#9a6a2f]/30;
 }
 
 .ops-input {
-  @apply w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#1e3a8a] focus:ring-2 focus:ring-[#1e3a8a]/15;
+  @apply w-full rounded-[4px] border border-[#cfc8bc] bg-white px-3 py-2.5 text-sm text-[#25322d] outline-none transition placeholder:text-[#9a9286] focus:border-[#183b35] focus:ring-2 focus:ring-[#183b35]/15;
 }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
