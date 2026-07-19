@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+.env*.local
+.env
+*.log
+.DS_Store
+.vercel/
+ui-ux-pro-max-skill/
+standalone-demo/
+lumistay-next/node_modules/
+lumistay-next/.next/
+lumistay-next/.env
+lumistay-next/.env.local
+lumistay-next/.vercel/

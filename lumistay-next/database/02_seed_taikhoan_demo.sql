@@ -1,0 +1,13 @@
+USE QLKS;
+GO
+
+-- Tạo hash bằng lệnh:
+-- npm run hash-password -- 123456
+-- rồi thay <PASTE_BCRYPT_HASH_HERE> bằng hash nhận được.
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TAIKHOAN WHERE TENDANGNHAP = 'admin')
+BEGIN
+    INSERT INTO dbo.TAIKHOAN (MANV, TENDANGNHAP, MATKHAU_HASH, VAITRO, TRANGTHAI)
+    VALUES ('NV01', 'admin', '<PASTE_BCRYPT_HASH_HERE>', 'ADMIN', 1);
+END
+GO

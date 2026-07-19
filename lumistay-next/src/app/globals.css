@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --booking-blue: #003580;
+  --booking-blue-light: #006ce4;
+  --booking-yellow: #febb02;
+  --booking-yellow-hover: #f2a900;
+  --ops-primary: #1e3a8a;
+  --ops-accent: #a16207;
+  --ops-bg: #f8fafc;
+  --ops-surface: #ffffff;
+  --ops-border: #e2e8f0;
+  --ops-text: #0f172a;
+  --ops-muted: #64748b;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+
+:focus-visible {
+  outline: 3px solid rgba(3, 105, 161, 0.45);
+  outline-offset: 2px;
+}
+
+/* ── Public booking theme (Booking.com-like) ── */
+.theme-public {
+  font-family: 'Outfit', system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #f5f5f5;
+}
+
+.theme-public h1,
+.theme-public h2,
+.theme-public h3 {
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+.booking-btn-primary {
+  @apply cursor-pointer rounded-md bg-[#febb02] px-6 py-3 text-sm font-bold text-[#003580] transition hover:bg-[#f2a900] focus:outline-none focus:ring-2 focus:ring-[#003580]/30 disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+.booking-btn-secondary {
+  @apply cursor-pointer rounded-md border border-[#003580] bg-white px-6 py-3 text-sm font-semibold text-[#003580] transition hover:bg-[#003580]/5 focus:outline-none focus:ring-2 focus:ring-[#003580]/20;
+}
+
+.booking-card {
+  @apply overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md;
+}
+
+.booking-input {
+  @apply w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#006ce4] focus:ring-2 focus:ring-[#006ce4]/20;
+}
+
+/* ── Ops dashboard theme ── */
+.theme-ops {
+  font-family: 'Fira Sans', system-ui, sans-serif;
+  color: var(--ops-text);
+  background: var(--ops-bg);
+}
+
+.theme-ops code,
+.theme-ops .font-mono {
+  font-family: 'Fira Code', monospace;
+}
+
+.ops-card {
+  @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+}
+
+.ops-btn-primary {
+  @apply cursor-pointer rounded-lg bg-[#1e3a8a] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1e40af] focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]/30 disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+.ops-btn-accent {
+  @apply cursor-pointer rounded-lg bg-[#a16207] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#92400e] focus:outline-none focus:ring-2 focus:ring-[#a16207]/30;
+}
+
+.ops-input {
+  @apply w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#1e3a8a] focus:ring-2 focus:ring-[#1e3a8a]/15;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.35); border-radius: 999px; }
+
+@media print {
+  .theme-public header,
+  .theme-public footer,
+  .print-hidden { display: none !important; }
+  body { background: white !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
