@@ -9,8 +9,8 @@ import { ArrowLeft, BedDouble, KeyRound, ShieldCheck } from "lucide-react";
 export function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("123456");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +79,6 @@ export function LoginForm() {
           </button>
 
           <div className="mt-5 flex flex-col gap-2 border-t border-[#e7e1d7] pt-4 text-xs text-[#81796d] sm:flex-row sm:items-center sm:justify-between">
-            <span>Demo: admin / 123456</span>
             <Link href="/" className="inline-flex cursor-pointer items-center gap-1 font-semibold text-[#183b35] hover:text-[#9a6a2f]"><ArrowLeft className="h-3.5 w-3.5" /> Trang khách sạn</Link>
           </div>
         </form>
