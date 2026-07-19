@@ -9,8 +9,8 @@ import { ArrowLeft, BedDouble, KeyRound, ShieldCheck } from "lucide-react";
 export function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
